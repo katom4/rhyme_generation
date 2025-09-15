@@ -8,9 +8,13 @@ class Rhyme:
     def _get_vowel(self):
         kks = pykakasi.kakasi()
         result = kks.convert(self.text)
+        romaji = result[0]['hepburn']
         vowels = ""
-        for item in result:
-            for char in item['hepburn']:
-                if char in "aiueo":
-                    vowels += char
+        for char in romaji:
+            if char in "aiueo":
+                vowels += char
+        
+        if self.text.endswith('ん'):
+            vowels += 'n'
+            
         return vowels
