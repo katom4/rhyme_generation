@@ -1,42 +1,18 @@
 import unittest
-from rhyme import Rhyme
+from rhyme import WordInfo
 
-class TestRhyme(unittest.TestCase):
-    def test_get_vowel(self):
-        # Basic test
-        text = "さくら"
-        rhyme = Rhyme(text)
-        self.assertEqual(rhyme.vowel, "aua")
-        text = "ありがとう"
-        rhyme = Rhyme(text)
-        self.assertEqual(rhyme.vowel, "aiaou")
+class TestWordInfo(unittest.TestCase):
+    def test_get_vowels_hiragana(self):
+        word_info = WordInfo("こんにちは")
+        self.assertEqual(word_info.vowels, "おんいいあ")
 
-    def test_yoon(self):
-        # Test for yoon (e.g., じゃ, きゃ)
-        text = "ちゃ"
-        rhyme = Rhyme(text)
-        self.assertEqual(rhyme.vowel, "a")
-        text = "しょ"
-        rhyme = Rhyme(text)
-        self.assertEqual(rhyme.vowel, "o")
+    def test_get_vowels_kanji(self):
+        word_info = WordInfo("日本語")
+        self.assertEqual(word_info.vowels, "いおんお")
 
-    def test_choon(self):
-        # Test for choon (e.g., あー)
-        text = "ラーメン"
-        rhyme = Rhyme(text)
-        self.assertEqual(rhyme.vowel, "aae")
-        text = "コーヒー"
-        rhyme = Rhyme(text)
-        self.assertEqual(rhyme.vowel, "ooii")
+    def test_get_vowels_katakana(self):
+        word_info = WordInfo("コンピュータ")
+        self.assertEqual(word_info.vowels, "おんううあ")
 
-    def test_n(self):
-        # Test for 'ん'
-        text = "かんたん"
-        rhyme = Rhyme(text)
-        self.assertEqual(rhyme.vowel, "aan")
-        text = "しんぶん"
-        rhyme = Rhyme(text)
-        self.assertEqual(rhyme.vowel, "iun")
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     unittest.main()

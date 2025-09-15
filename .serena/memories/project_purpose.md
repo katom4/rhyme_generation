@@ -1,0 +1,1 @@
+The project is a Python application for processing Japanese words to extract phonetic information, specifically vowels. The ultimate goal appears to be rhyme generation, as suggested by the project's name. The core logic uses the `pykakasi` library to convert Japanese text (including Kanji) into Hiragana, from which the vowels are then extracted.

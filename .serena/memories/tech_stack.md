@@ -1,0 +1,1 @@
+The project is built using Python. The only external dependency is the `pykakasi` library, which is used for converting Japanese characters (Kanji, Hiragana, Katakana) into different phonetic notations.
