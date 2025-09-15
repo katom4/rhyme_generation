@@ -1,0 +1,15 @@
+description = "指定されたissueの内容を、テスト駆動開発により実装するコマンド"
+
+prompt = """# タスク
+GitHubのIssueの内容を確認し、タスクを実行する処理を行なってください。 実行する処理のステップは以下のとおりです。
+
+## 手順
+1. !`gh issue view $ARGUMENTS` でGitHubのIssueの内容を確認する
+2. Issueの内容を実現するために必要なタスクをTDD（テスト駆動開発）に基づいて遂行する
+3. テストとLintを実行し、すべてのテストが通ることを確認する
+4. 適切な粒度でgitのcommitを行う
+5. 以下のルールに従ってPRを作成する
+  - PRのdescriptionのテンプレートは @.github/PULL_REQUEST_TEMPLATE.md を参照し、それに従うこと
+  - PRのdescriptionのテンプレート内でコメントアウトされている箇所は必ず削除すること
+  - PRのdescriptionにはCloses #$ARGUMENTSと記載すること
+"""
