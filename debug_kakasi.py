@@ -1,15 +1,6 @@
 from pykakasi import kakasi
 
 kks = kakasi()
-
-text = "ラーメン"
+text = "日本語"
 result = kks.convert(text)
-print('"ラーメン"')
-for item in result:
-    print(item)
-
-text = "かんたん"
-result = kks.convert(text)
-print('"かんたん"')
-for item in result:
-    print(item)
+print(result)
