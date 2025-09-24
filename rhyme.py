@@ -45,7 +45,7 @@ class WordInfo:
                         last_vowels.append(last_vowel_info)
 
                     if last_vowels:
-                        result.append([last_vowels[-1], 'optional'])
+                        result.append(last_vowels + ['optional'])
                 i += 1
                 continue
 
@@ -62,7 +62,7 @@ class WordInfo:
                         last_vowels.append(last_vowel_info)
                         
                     if last_vowels:
-                        result.append([last_vowels[-1], 'っ', 'optional'])
+                        result.append(last_vowels + ['っ', 'optional'])
                 else:
                     result.append(['っ', 'optional'])
                 i += 1

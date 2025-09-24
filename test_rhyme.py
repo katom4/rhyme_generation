@@ -34,5 +34,9 @@ class TestWordInfo(unittest.TestCase):
         word_info = WordInfo("あんうん")
         self.assertEqual(word_info.vowels, ['あ', ['ん', 'う', 'optional'], ['う', 'optional'], ['ん', 'う', 'optional']])
 
+    def test_get_vowels_n_bar(self):
+        word_info = WordInfo("んー")
+        self.assertEqual(word_info.vowels, [['ん', 'う', 'optional'], ['ん', 'う', 'optional']])
+
 if __name__ == '__main__':
     unittest.main()
