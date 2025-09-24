@@ -1,1 +1,6 @@
 pykakasi
+fastapi
+uvicorn
+streamlit
+requests
+httpx
