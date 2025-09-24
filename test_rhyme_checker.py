@@ -40,7 +40,7 @@ class TestRhymeChecker(unittest.TestCase):
         checker = RhymeChecker(base_word, target_word)
         self.assertEqual(checker.results, [True])
 
-def test_rhyme_checker_issue_13(self):
+    def test_rhyme_checker_issue_13(self):
         # Test cases from issue #13
         test_cases = {
             ("サーモンどん", "パソコン"): True,
@@ -49,6 +49,25 @@ def test_rhyme_checker_issue_13(self):
             ("こんにちは", "そんしには"): True,
             ("スマホ", "うわき"): False,
             ("こんにちは", "さようなら"): False,
+        }
+
+        for (base_word, target_word), expected in test_cases.items():
+            with self.subTest(base_word=base_word, target_word=target_word):
+                checker = RhymeChecker(base_word, target_word)
+                self.assertEqual(checker.results[0], expected)
+
+    def test_rhyme_checker_contracted_sounds(self):
+        test_cases = {
+            ("ファ", "ア"): True,
+            ("フィ", "イ"): True,
+            ("フェ", "エ"): True,
+            ("フォ", "オ"): True,
+            ("ウィ", "イ"): True,
+            ("ウェ", "エ"): True,
+            ("ウォ", "オ"): True,
+            ("ヴァ", "ア"): True,
+            ("ヴィ", "イ"): True,
+            ("シェ", "エ"): True,
         }
 
         for (base_word, target_word), expected in test_cases.items():
