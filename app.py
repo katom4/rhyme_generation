@@ -74,7 +74,7 @@ if st.button("判定する", key="check_rhymes"):
                 }
                 try:
                     response = requests.post(f"{BASE_URL}/rhyme-check/", json=payload)
-                    response.raise_for_for_status() # エラーがあれば例外を発生
+                    response.raise_for_status() # エラーがあれば例外を発生
                     results = response.json()
                     
                     st.success("判定結果:")
