@@ -1,4 +1,3 @@
-
 from pykakasi import kakasi
 
 class WordInfo:
@@ -36,16 +35,34 @@ class WordInfo:
             if char == 'ー':
                 if result:
                     last_vowel_info = result[-1]
-                    last_vowel = last_vowel_info[0] if isinstance(last_vowel_info, list) else last_vowel_info
-                    result.append([last_vowel, 'optional'])
+                    
+                    last_vowels = []
+                    if isinstance(last_vowel_info, list):
+                        for item in last_vowel_info:
+                            if item not in ['optional', 'っ']:
+                                last_vowels.append(item)
+                    else:
+                        last_vowels.append(last_vowel_info)
+
+                    if last_vowels:
+                        result.append([last_vowels[-1], 'optional'])
                 i += 1
                 continue
 
             if char == 'っ':
                 if result:
                     last_vowel_info = result[-1]
-                    last_vowel = last_vowel_info[0] if isinstance(last_vowel_info, list) else last_vowel_info
-                    result.append([last_vowel, 'っ', 'optional'])
+
+                    last_vowels = []
+                    if isinstance(last_vowel_info, list):
+                        for item in last_vowel_info:
+                            if item not in ['optional', 'っ']:
+                                last_vowels.append(item)
+                    else:
+                        last_vowels.append(last_vowel_info)
+                        
+                    if last_vowels:
+                        result.append([last_vowels[-1], 'っ', 'optional'])
                 else:
                     result.append(['っ', 'optional'])
                 i += 1
@@ -68,8 +85,18 @@ class WordInfo:
 
             if result:
                 last_vowel_info = result[-1]
-                last_vowel = last_vowel_info[0] if isinstance(last_vowel_info, list) else last_vowel_info
-                if vowel == last_vowel:
+                
+                last_vowels = []
+                if isinstance(last_vowel_info, list):
+                    for item in last_vowel_info:
+                        if item not in ['optional', 'っ']:
+                            last_vowels.append(item)
+                else:
+                    last_vowels.append(last_vowel_info)
+
+                is_vowel_char = char in ['あ', 'い', 'う', 'え', 'お']
+
+                if vowel in last_vowels and (is_vowel_char or len(last_vowels) == 1):
                     result.append([vowel, 'optional'])
                 else:
                     result.append(vowel)

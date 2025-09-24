@@ -30,5 +30,9 @@ class TestWordInfo(unittest.TestCase):
         word_info = WordInfo("パソコン")
         self.assertEqual(word_info.vowels, ['あ', 'お', ['お', 'optional'], ['ん', 'う', 'optional']])
 
+    def test_get_vowels_anun(self):
+        word_info = WordInfo("あんうん")
+        self.assertEqual(word_info.vowels, ['あ', ['ん', 'う', 'optional'], ['う', 'optional'], ['ん', 'う', 'optional']])
+
 if __name__ == '__main__':
     unittest.main()
