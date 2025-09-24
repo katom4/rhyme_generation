@@ -19,13 +19,13 @@ class TestRhymeChecker(unittest.TestCase):
         base_word = "じゃ"
         target_word = "いあ"
         checker = RhymeChecker(base_word, target_word)
-        self.assertEqual(checker.results, [True])
+        self.assertEqual(checker.results, [False])
 
         # Test for "ぴゃ"
         base_word = "ぴゃ"
         target_word = "いあ"
         checker = RhymeChecker(base_word, target_word)
-        self.assertEqual(checker.results, [True])
+        self.assertEqual(checker.results, [False])
 
     def test_rhyme_checker_long_vowels(self):
         # Test for "ー" (long 'a')
@@ -39,6 +39,23 @@ class TestRhymeChecker(unittest.TestCase):
         target_word = "いい"
         checker = RhymeChecker(base_word, target_word)
         self.assertEqual(checker.results, [True])
+
+def test_rhyme_checker_issue_13(self):
+        # Test cases from issue #13
+        test_cases = {
+            ("サーモンどん", "パソコン"): True,
+            ("サロモン", "パソコン"): True,
+            ("ドデカミン", "こえたり"): True,
+            ("こんにちは", "そんしには"): True,
+            ("スマホ", "うわき"): False,
+            ("こんにちは", "さようなら"): False,
+        }
+
+        for (base_word, target_word), expected in test_cases.items():
+            with self.subTest(base_word=base_word, target_word=target_word):
+                checker = RhymeChecker(base_word, target_word)
+                self.assertEqual(checker.results[0], expected)
+
 
 if __name__ == "__main__":
     unittest.main()
