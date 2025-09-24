@@ -1,4 +1,3 @@
-
 from pykakasi import kakasi
 
 class WordInfo:
@@ -31,18 +30,79 @@ class WordInfo:
         i = 0
         while i < len(hira):
             char = hira[i]
-            if char == 'ー' and result:
-                result.append(result[-1])
+            vowel = None
+
+            if char == 'ー':
+                if result:
+                    last_vowel_info = result[-1]
+                    
+                    last_vowels = []
+                    if isinstance(last_vowel_info, list):
+                        for item in last_vowel_info:
+                            if item not in ['optional', 'っ']:
+                                last_vowels.append(item)
+                    else:
+                        last_vowels.append(last_vowel_info)
+
+                    if last_vowels:
+                        result.append(last_vowels + ['optional'])
                 i += 1
-            elif i + 1 < len(hira) and hira[i+1] in small_vowels:
-                result.append(small_vowels[hira[i+1]])
+                continue
+
+            if char == 'っ':
+                if result:
+                    last_vowel_info = result[-1]
+
+                    last_vowels = []
+                    if isinstance(last_vowel_info, list):
+                        for item in last_vowel_info:
+                            if item not in ['optional', 'っ']:
+                                last_vowels.append(item)
+                    else:
+                        last_vowels.append(last_vowel_info)
+                        
+                    if last_vowels:
+                        result.append(last_vowels + ['っ', 'optional'])
+                else:
+                    result.append(['っ', 'optional'])
+                i += 1
+                continue
+
+            if char == 'ん':
+                result.append(['ん', 'う', 'optional'])
+                i += 1
+                continue
+
+            if i + 1 < len(hira) and hira[i+1] in small_vowels:
+                vowel = small_vowels[hira[i+1]]
                 i += 2
             elif char in hiragana_vowels:
-                result.append(hiragana_vowels[char])
+                vowel = hiragana_vowels[char]
                 i += 1
             else:
                 i += 1
-        return "".join(result)
+                continue
+
+            if result:
+                last_vowel_info = result[-1]
+                
+                last_vowels = []
+                if isinstance(last_vowel_info, list):
+                    for item in last_vowel_info:
+                        if item not in ['optional', 'っ']:
+                            last_vowels.append(item)
+                else:
+                    last_vowels.append(last_vowel_info)
+
+                is_vowel_char = char in ['あ', 'い', 'う', 'え', 'お']
+
+                if vowel in last_vowels and (is_vowel_char or len(last_vowels) == 1):
+                    result.append([vowel, 'optional'])
+                else:
+                    result.append(vowel)
+            else:
+                result.append(vowel)
+        return result
 
     def _update_vowels(self):
         result = self.kks.convert(self.word)
