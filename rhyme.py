@@ -31,18 +31,51 @@ class WordInfo:
         i = 0
         while i < len(hira):
             char = hira[i]
-            if char == 'ー' and result:
-                result.append(result[-1])
+            vowel = None
+
+            if char == 'ー':
+                if result:
+                    last_vowel_info = result[-1]
+                    last_vowel = last_vowel_info[0] if isinstance(last_vowel_info, list) else last_vowel_info
+                    result.append([last_vowel, 'optional'])
                 i += 1
-            elif i + 1 < len(hira) and hira[i+1] in small_vowels:
-                result.append(small_vowels[hira[i+1]])
+                continue
+
+            if char == 'っ':
+                if result:
+                    last_vowel_info = result[-1]
+                    last_vowel = last_vowel_info[0] if isinstance(last_vowel_info, list) else last_vowel_info
+                    result.append([last_vowel, 'っ', 'optional'])
+                else:
+                    result.append(['っ', 'optional'])
+                i += 1
+                continue
+
+            if char == 'ん':
+                result.append(['ん', 'う', 'optional'])
+                i += 1
+                continue
+
+            if i + 1 < len(hira) and hira[i+1] in small_vowels:
+                vowel = small_vowels[hira[i+1]]
                 i += 2
             elif char in hiragana_vowels:
-                result.append(hiragana_vowels[char])
+                vowel = hiragana_vowels[char]
                 i += 1
             else:
                 i += 1
-        return "".join(result)
+                continue
+
+            if result:
+                last_vowel_info = result[-1]
+                last_vowel = last_vowel_info[0] if isinstance(last_vowel_info, list) else last_vowel_info
+                if vowel == last_vowel:
+                    result.append([vowel, 'optional'])
+                else:
+                    result.append(vowel)
+            else:
+                result.append(vowel)
+        return result
 
     def _update_vowels(self):
         result = self.kks.convert(self.word)
