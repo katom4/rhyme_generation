@@ -75,6 +75,22 @@ class TestRhymeChecker(unittest.TestCase):
                 checker = RhymeChecker(base_word, target_word)
                 self.assertEqual(checker.results[0], expected)
 
+    def test_rhyme_checker_score_image_example(self):
+        base_word = "きっと"
+        target_word = "ひもと"
+        checker = RhymeChecker(base_word, target_word)
+        self.assertAlmostEqual(checker.scores[0], 1 / 3)
+
+    def test_rhyme_checker_score_multiple_cases(self):
+        base_word = "ヒップホップ"
+        target_word = "にほん"
+        checker = RhymeChecker(base_word, target_word)
+        self.assertAlmostEqual(checker.scores[0], 2 / 6)
+
+    def test_rhyme_checker_score_identical_words(self):
+        checker = RhymeChecker("いのち", "いのち")
+        self.assertAlmostEqual(checker.scores[0], 0.0)
+
 
 if __name__ == "__main__":
     unittest.main()

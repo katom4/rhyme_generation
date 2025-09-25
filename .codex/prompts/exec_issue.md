@@ -1,0 +1,18 @@
+# タスク
+GitHubのIssueの内容を確認し、タスクを実行する処理を行なってください。 実行する処理のステップは以下のとおりです。
+
+## 手順
+1. !`1` でGitHubのIssueの内容を確認する
+2. 開発用のリポジトリはdevelopなので、developにチェックアウトし、pullを行い、最新のリモート状態を取得する
+3. Issueの内容を元に、適切な命名でブランチを作成し、チェックアウトする
+4. Issueの内容を実現するために必要なタスクをTDD（テスト駆動開発）に基づいて遂行する
+5. テストとLintを実行し、すべてのテストが通ることを確認する
+6. 適切な粒度でgitのcommitを行う
+7. 以下のルールに従ってdevelopに対するPRを作成する
+  - PRのdescriptionのテンプレートは @.github/PULL_REQUEST_TEMPLATE.md を参照し、それに従うこと
+  - PRのdescriptionのテンプレート内でコメントアウトされている箇所は必ず削除すること
+  - PRのdescriptionにはCloses #$ARGUMENTSと記載すること
+
+## 注意
+- ライブラリを用いた実装は**context7 mcp**を用いてライブラリの正しい使い方を確認すること
+- githubの操作は、Github MCPを使用すること
