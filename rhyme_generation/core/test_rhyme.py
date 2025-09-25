@@ -1,5 +1,5 @@
 import unittest
-from rhyme import WordInfo
+from rhyme_generation.core.rhyme import WordInfo
 
 class TestWordInfo(unittest.TestCase):
     def test_get_vowels_hiragana(self):

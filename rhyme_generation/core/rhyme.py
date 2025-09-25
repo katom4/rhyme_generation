@@ -48,7 +48,7 @@ class WordInfo:
                 basic_units.append(hiragana_vowels[char])
                 i += 1
             else:
-                i += 1  # Skip non-vowel characters
+                i += 1
         return basic_units
 
     def _process_units_with_optional_logic(self, basic_units):
@@ -58,15 +58,11 @@ class WordInfo:
 
         for unit in basic_units:
             if unit == 'ー':
-                if final_vowels and last_simple_vowel: # Only if there was a previous simple vowel
-                    # Find the last entry in final_vowels that corresponds to last_simple_vowel
-                    # and modify it to be optional.
+                if final_vowels and last_simple_vowel:
                     if not isinstance(final_vowels[-1], list):
                         final_vowels[-1] = [final_vowels[-1], 'optional']
                     elif final_vowels[-1] and final_vowels[-1][0] == last_simple_vowel:
-                        # If it's already an optional list of the same vowel, no change needed
                         pass
-                # Reset consecutive count for simple vowels after special marker
                 last_simple_vowel = None
                 consecutive_count = 0
             elif unit == 'っ':
@@ -77,14 +73,13 @@ class WordInfo:
                 final_vowels.append(['ん', 'う', 'optional'])
                 last_simple_vowel = None
                 consecutive_count = 0
-            else:  # It's a simple vowel
-                if last_simple_vowel == unit and consecutive_count == 1:
-                    final_vowels.append([unit, 'optional'])
-                    consecutive_count += 1  # Now 2 consecutive, next won't be optional
-                else:
-                    final_vowels.append(unit)
-                    last_simple_vowel = unit
-                    consecutive_count = 1
+            elif last_simple_vowel == unit and consecutive_count == 1:
+                final_vowels.append([unit, 'optional'])
+                consecutive_count += 1
+            else:
+                final_vowels.append(unit)
+                last_simple_vowel = unit
+                consecutive_count = 1
         return final_vowels
 
     def _update_vowels(self):

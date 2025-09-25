@@ -1,6 +1,6 @@
 from fastapi import FastAPI
-from rhyme import WordInfo
-from rhyme_checker import RhymeChecker
+from ..core.rhyme import WordInfo
+from ..core.rhyme_checker import RhymeChecker
 from pydantic import BaseModel
 from typing import List
 
