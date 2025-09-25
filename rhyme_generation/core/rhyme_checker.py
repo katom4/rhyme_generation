@@ -1,4 +1,4 @@
-from rhyme import WordInfo
+from .rhyme import WordInfo
 from functools import lru_cache
 
 class RhymeChecker:

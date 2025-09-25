@@ -1,5 +1,5 @@
 import unittest
-from rhyme_checker import RhymeChecker
+from rhyme_generation.core.rhyme_checker import RhymeChecker
 
 class TestRhymeChecker(unittest.TestCase):
     def test_rhyme_checker_with_list(self):

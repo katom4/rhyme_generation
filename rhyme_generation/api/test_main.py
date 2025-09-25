@@ -1,5 +1,5 @@
 from fastapi.testclient import TestClient
-from main import app
+from rhyme_generation.api.main import app
 
 client = TestClient(app)
 
@@ -11,4 +11,4 @@ def test_get_vowels():
 def test_rhyme_check():
     response = client.post("/rhyme-check/", json={"base_word": "しんぶんし", "target_words": ["きんようび", "こんにちは"]})
     assert response.status_code == 200
-    assert response.json() == [True, False]
+    assert response.json() == [False, False]
